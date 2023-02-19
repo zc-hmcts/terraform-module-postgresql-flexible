@@ -33,7 +33,7 @@ data "azuread_group" "db_admin" {
 
 data "azuread_service_principal" "mi_name" {
   count     = var.enable_read_only_group_access ? 1 : 0
-  object_id = var.admin_user_object_id
+  object_id = replace(var.admin_user_object_id, " ", "\\ ")
 }
 
 resource "random_password" "password" {
