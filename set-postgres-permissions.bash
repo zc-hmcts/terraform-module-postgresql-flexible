@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+set -euvx
 
 export AZURE_CONFIG_DIR=~/.azure-db-manager
 az login --identity
