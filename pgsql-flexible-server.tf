@@ -39,7 +39,7 @@ data "azuread_group" "db_admin" {
 
 data "azuread_service_principal" "mi_name" {
   count     = var.enable_read_only_group_access ? 1 : 0
-  object_id = replace(var.admin_user_object_id, " ", "\\ ")
+  object_id = var.admin_user_object_id
 }
 
 resource "random_password" "password" {
@@ -151,7 +151,7 @@ resource "null_resource" "set-user-permissions-additionaldbs" {
 
     environment = {
       DB_HOST_NAME   = azurerm_postgresql_flexible_server.pgsql_server.fqdn
-      DB_USER        = data.azuread_service_principal.mi_name[0].display_name
+      DB_USER        = replace(data.azuread_service_principal.mi_name[0].display_name, " ", "\\ ")
       DB_READER_USER = local.db_reader_user
       DB_NAME        = each.value.name
     }
