@@ -7,7 +7,7 @@ echo ${DB_READER_USER}
 echo ${DB_NAME}
 
 export AZURE_CONFIG_DIR=~/.azure-db-manager
-az login --identity --username ${DB_USER}
+az login --identity --username ${DB_USER_OID}
 
 # shellcheck disable=SC2155
 export PGPASSWORD=$(az account get-access-token --resource-type oss-rdbms --query accessToken -o tsv)
