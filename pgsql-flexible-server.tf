@@ -130,7 +130,7 @@ resource "azurerm_postgresql_flexible_server_active_directory_administrator" "pg
   resource_group_name = azurerm_postgresql_flexible_server.pgsql_server.resource_group_name
   tenant_id           = data.azurerm_client_config.current.tenant_id
   object_id           = var.admin_user_object_id
-  principal_name      = tostring(data.azuread_service_principal.mi_name[0].display_name)
+  principal_name      = format(data.azuread_service_principal.mi_name[0].display_name)
   principal_type      = "ServicePrincipal"
   depends_on = [
     azurerm_postgresql_flexible_server_active_directory_administrator.pgsql_adadmin
