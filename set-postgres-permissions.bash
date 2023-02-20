@@ -8,9 +8,10 @@ echo ${DB_NAME}
 
 whoami
 pwd
+env
 
 export AZURE_CONFIG_DIR=~/.azure-db-manager
-az login --identity --verbose
+az login --identity --verbose --tenant 531ff96d-0ae9-462a-8d2d-bec7c0b42082
 
 # shellcheck disable=SC2155
 export PGPASSWORD=$(az account get-access-token --resource-type oss-rdbms --query accessToken -o tsv)
