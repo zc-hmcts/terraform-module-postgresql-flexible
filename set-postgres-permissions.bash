@@ -10,7 +10,7 @@ whoami
 pwd
 
 export AZURE_CONFIG_DIR=~/.azure-db-manager
-az login --identity --verbose --debug
+az login --identity --verbose
 
 # shellcheck disable=SC2155
 export PGPASSWORD=$(az account get-access-token --resource-type oss-rdbms --query accessToken -o tsv)
