@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-set -euvx
+set -evx
 
 echo ${DB_HOST_NAME}
 echo ${DB_USER}
