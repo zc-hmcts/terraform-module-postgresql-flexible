@@ -124,13 +124,13 @@ resource "azurerm_postgresql_flexible_server_active_directory_administrator" "pg
   ]
 }
 
-resource "azurerm_postgresql_flexible_server_active_directory_administrator" "pgsql_principal_admin" {
+resource "azurerm_postgresql_flexible_server_active_directory_administrator" "   c" {
   count               = var.enable_read_only_group_access ? 1 : 0
   server_name         = azurerm_postgresql_flexible_server.pgsql_server.name
   resource_group_name = azurerm_postgresql_flexible_server.pgsql_server.resource_group_name
   tenant_id           = data.azurerm_client_config.current.tenant_id
   object_id           = var.admin_user_object_id
-  principal_name      = data.azuread_service_principal.mi_name[0].display_name
+  principal_name      = tostring(data.azuread_service_principal.mi_name[0].display_name)
   principal_type      = "ServicePrincipal"
   depends_on = [
     azurerm_postgresql_flexible_server_active_directory_administrator.pgsql_adadmin
@@ -151,7 +151,7 @@ resource "null_resource" "set-user-permissions-additionaldbs" {
 
     environment = {
       DB_HOST_NAME = azurerm_postgresql_flexible_server.pgsql_server.fqdn
-      DB_USER      = replace(data.azuread_service_principal.mi_name[0].display_name, " ", "")
+      DB_USER      = replace(azurerm_postgresql_flexible_server_active_directory_administrator.pgsql_principal_admin[0].principal_name, " ", "\\ ")
       //DB_USER_OID    = data.azuread_service_principal.mi_name[0].object_id
       DB_READER_USER = local.db_reader_user
       DB_NAME        = each.value.name
