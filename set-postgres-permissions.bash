@@ -10,9 +10,13 @@ whoami
 pwd
 env
 
+GET 'http://169.254.169.254/metadata/identity/oauth2/token?api-version=2018-02-01&resource=https://management.azure.com/' HTTP/1.1 Metadata: true
+
+az ad signed-in-user show --query objectId -o tsv
+
 export AZURE_CONFIG_DIR=~/.azure-db-manager
 
-cat ~/.azure-db-manager
+# cat ~/.azure-db-manager
 
 az login --identity --verbose
 
